@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Ordering.Queries
 {
-    public class QuotesQueryHandler
+    public class QuotesQueryHandler : IQueryHandler<QuotesQuery,IList<Quote>>
     {
         private readonly IEnumerable<IStroopwafelSupplierService> _stroopwafelSupplierServices;
 

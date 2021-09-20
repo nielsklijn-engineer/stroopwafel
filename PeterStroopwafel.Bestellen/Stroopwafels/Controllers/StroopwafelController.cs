@@ -6,24 +6,19 @@ using Ordering.Services;
 using Stroopwafels.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Routing;
 
 namespace Stroopwafels.Controllers
 {
     public class StroopwafelController : Controller
     {
         private readonly QuotesQueryHandler _quotesQueryHandler;
-        private readonly OrderCommandHandler _orderCommandHandler;
+        private readonly ICommandHandler<OrderCommand> _orderCommandHandler;
 
-        public StroopwafelController(IHttpClientWrapper httpClientWrapper)
+        public StroopwafelController(IHttpClientWrapper httpClientWrapper, IEnumerable<IStroopwafelSupplierService> supplierServices, ICommandHandler<OrderCommand> orderCommandHandler, QuotesQueryHandler quotesQueryHandler)
         {
-            var suppliers = new IStroopwafelSupplierService[]
-            {
-                new StroopwafelSupplierAService(httpClientWrapper),
-                new StroopwafelSupplierBService(httpClientWrapper),
-                new StroopwafelSupplierCService(httpClientWrapper)
-            };
-            _quotesQueryHandler = new QuotesQueryHandler(suppliers);
-            _orderCommandHandler = new OrderCommandHandler(suppliers);
+            _quotesQueryHandler = quotesQueryHandler;
+            _orderCommandHandler = orderCommandHandler;
         }
 
         public ActionResult Index()

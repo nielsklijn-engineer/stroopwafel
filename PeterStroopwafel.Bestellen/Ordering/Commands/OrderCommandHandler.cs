@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Ordering.Commands
 {
-    public class OrderCommandHandler
+    public class OrderCommandHandler : ICommandHandler<OrderCommand>
     {
         private readonly IEnumerable<IStroopwafelSupplierService> _stroopwafelSupplierServices;
 

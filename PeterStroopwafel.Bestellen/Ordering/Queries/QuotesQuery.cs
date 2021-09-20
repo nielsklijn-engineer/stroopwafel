@@ -2,7 +2,7 @@
 
 namespace Ordering.Queries
 {
-    public class QuotesQuery
+    public class QuotesQuery 
     {
         public IList<KeyValuePair<StroopwafelType, int>> OrderLines { get; }
 

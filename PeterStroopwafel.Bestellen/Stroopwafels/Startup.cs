@@ -20,7 +20,7 @@ namespace Stroopwafels
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IHttpClientWrapper, HttpClientWrapper>();
+            services.AddOrdering();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
