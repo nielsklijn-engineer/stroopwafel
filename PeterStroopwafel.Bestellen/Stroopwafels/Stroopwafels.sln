@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stroopwafels", "Stroopwafel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering", "..\Ordering\Ordering.csproj", "{1D72A7D9-EC1D-4E01-A6F8-37B94D33AA94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeterStroopwafel.Website", "..\..\PeterStroopwafel.Website\PeterStroopwafel.Website.csproj", "{7CB12BA9-CD82-4113-A5EE-64ABCFC93EAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1D72A7D9-EC1D-4E01-A6F8-37B94D33AA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D72A7D9-EC1D-4E01-A6F8-37B94D33AA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D72A7D9-EC1D-4E01-A6F8-37B94D33AA94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CB12BA9-CD82-4113-A5EE-64ABCFC93EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CB12BA9-CD82-4113-A5EE-64ABCFC93EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CB12BA9-CD82-4113-A5EE-64ABCFC93EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CB12BA9-CD82-4113-A5EE-64ABCFC93EAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
