@@ -1,4 +1,6 @@
-﻿namespace Ordering
+﻿using System.Collections.Generic;
+
+namespace Ordering
 {
     public enum StroopwafelType
     {

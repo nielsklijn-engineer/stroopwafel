@@ -1,6 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Ordering.Commands;
 using Ordering.Database;
@@ -13,15 +10,25 @@ namespace Ordering {
 
         public static IServiceCollection AddOrdering(this IServiceCollection services) {
             services.AddEntityFrameworkSqlite().AddDbContext<OrderContext>();
+
             services.AddTransient<IStroopwafelSupplierService, StroopwafelSupplierAService>();
             services.AddTransient<IStroopwafelSupplierService, StroopwafelSupplierBService>();
             services.AddTransient<IStroopwafelSupplierService, StroopwafelSupplierCService>();
 
 
             services.AddTransient<ICommandHandler<OrderCommand>, OrderCommandHandler>();
+            services.AddTransient<ICommandHandler<CustomerOrderCommand>, CustomerOrderCommandHandler>();
+
             services.AddTransient<QuotesQueryHandler, QuotesQueryHandler>();
+            services.AddTransient<CustomerQuotesQueryHandler, CustomerQuotesQueryHandler>();
             
             services.AddSingleton<IHttpClientWrapper, HttpClientWrapper>();
+            
+            
+            using(var client = new OrderContext())
+            {
+                client.Database.EnsureCreated();
+            }
 
             return services;
         }
