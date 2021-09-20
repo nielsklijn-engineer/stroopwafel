@@ -15,7 +15,7 @@ namespace Stroopwafels.Controllers
         private readonly QuotesQueryHandler _quotesQueryHandler;
         private readonly ICommandHandler<OrderCommand> _orderCommandHandler;
 
-        public StroopwafelController(IHttpClientWrapper httpClientWrapper, IEnumerable<IStroopwafelSupplierService> supplierServices, ICommandHandler<OrderCommand> orderCommandHandler, QuotesQueryHandler quotesQueryHandler)
+        public StroopwafelController(ICommandHandler<OrderCommand> orderCommandHandler, QuotesQueryHandler quotesQueryHandler)
         {
             _quotesQueryHandler = quotesQueryHandler;
             _orderCommandHandler = orderCommandHandler;
