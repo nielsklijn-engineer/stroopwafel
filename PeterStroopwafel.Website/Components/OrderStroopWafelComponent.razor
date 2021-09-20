@@ -1,0 +1,48 @@
+﻿@using System.Data
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.Forms
+@using Ordering
+
+@inherits ComponentBase
+
+@if (ShowOrderForm) {
+    <div class="row">
+        <div class="col-1 font-weight-bold">Voor en achternaam </div>
+        <div class="col-1">
+            <input type="text" @bind=@OrderViewModel.CustomerName/>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-1 font-weight-bold">Ophaal datum</div>
+        <div class="col-1">
+            <input type="date" @bind=@OrderViewModel.WishDate/>
+        </div>
+    </div>
+
+    @foreach (var orderRow in OrderViewModel.OrderRows) {
+        <div class="row">
+            <div class="col-1 font-weight-bold">@orderRow.DisplayName</div>
+            <div class="col-1">
+                <input type="int" @bind=@orderRow.Amount/>
+            </div>
+        </div>
+    }
+
+    <span> Totaal prijs: @OrderViewModel.GetCustomerQuote().TotalPricePresentation </span>
+
+
+    <input class="btn btn-outline-secondary" @onclick="OnOrder" type="submit" value="Bestellen" disabled="@(!OrderViewModel.IsValid)">
+    @foreach (var message in OrderViewModel.GetMessages()) {
+        <div class="alert alert-warning" role="alert">
+            @message
+        </div>
+    }
+}
+
+
+@if (ShowOrderSuccess) {
+    <span>Dank voor je bestelling @OrderViewModel.CustomerName </span>
+}
