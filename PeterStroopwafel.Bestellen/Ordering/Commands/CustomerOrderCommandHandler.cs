@@ -18,26 +18,35 @@ namespace Ordering.Commands {
             _orderCommandHandler = orderCommandHandler;
         }
 
-        public void Handle(CustomerOrderCommand command) {
-            var selectQuote = _customerQuotesQueryHandler.Handle(new QuotesQuery(command.OrderLines));
-            var supplierName = selectQuote.PreferredQuote.Supplier.Name;
-
-            _orderCommandHandler.Handle(new OrderCommand(command.OrderLines, supplierName));
-
+        public void Handle(CustomerOrderCommand command)
+        {
+            var customerQuote = _customerQuotesQueryHandler.Handle(new QuotesQuery(command.OrderLines.ToList(),command.WishDate));
+            
+            foreach (var orderCommand in customerQuote.GetOrderCommands())
+            {
+                _orderCommandHandler.Handle(orderCommand);
+            }
+            
             var dbOrder = new DbOrder {
                 CustomerName = command.CustomerName,
                 WishDate = command.WishDate,
-                TotalSalesPrice = selectQuote.TotalPrice
+                TotalSalesPrice = customerQuote.TotalPrice
             };
 
             var orderLines = new List<DbOrderLine>();
 
-            foreach (var orderLine in command.OrderLines) {
-                orderLines.Add(new DbOrderLine {
-                    Quantity = orderLine.Value,
-                    StroopwafelType = orderLine.Key,
-                    Supplier = supplierName,
-                });
+
+            foreach (var orderLinesPerSupplier in customerQuote.SupplierQuotes)
+            {
+                var supplierName = orderLinesPerSupplier.Supplier.Name;
+                foreach (var orderLine in orderLinesPerSupplier.OrderLines)
+                {
+                    orderLines.Add(new DbOrderLine {
+                        Quantity = orderLine.Amount,
+                        StroopwafelType = orderLine.Stroopwafel.Type,
+                        Supplier = supplierName,
+                    });
+                }
             }
 
             dbOrder.OrderLines = orderLines;

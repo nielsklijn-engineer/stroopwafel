@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Ordering.Commands;
+using Ordering.CustomerQuote;
 using Ordering.Database;
 using Ordering.Queries;
 using Ordering.Services;
@@ -16,6 +17,9 @@ namespace Ordering {
             services.AddTransient<IStroopwafelSupplierService, StroopwafelSupplierCService>();
 
 
+            //services.AddTransient<ICustomerQuoteStrategy, SingleSupplierQuoteStrategy>();
+            services.AddTransient<ICustomerQuoteStrategy, MultipleSupplierQuoteStrategy>();
+            
             services.AddTransient<ICommandHandler<OrderCommand>, OrderCommandHandler>();
             services.AddTransient<ICommandHandler<CustomerOrderCommand>, CustomerOrderCommandHandler>();
 
