@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Ordering;
 using Ordering.Commands;
+using Ordering.CustomerQuote;
 using Ordering.Queries;
 
 namespace PeterStroopwafel.Website.Components {
@@ -46,8 +47,11 @@ namespace PeterStroopwafel.Website.Components {
             return lines;
         }
 
+        private CustomerQuote _customerQuote;
+        
         public CustomerQuote GetCustomerQuote() {
-            return _customerQuotesQuery.Handle(new QuotesQuery(GetOrderLines()));
+            _customerQuote =_customerQuotesQuery.Handle(new QuotesQuery(GetOrderLines(),WishDate));
+            return _customerQuote;
         }
 
         public CustomerOrderCommand GetCustomerOrderCommand() {
@@ -68,6 +72,11 @@ namespace PeterStroopwafel.Website.Components {
             
             if (OrderRows.Sum(x=>x.Amount) == 0 ) {
                 messages.Add("Bestel 1 of meer producten.");
+            }
+
+            if (_customerQuote != null && !_customerQuote.GetOrderCommands().Any())
+            {
+                messages.Add("Op deze datum kunnen wij niet leveren.");
             }
 
             return messages;
